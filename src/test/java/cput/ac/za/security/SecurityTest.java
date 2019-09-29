@@ -1,8 +1,7 @@
 package cput.ac.za.security;
 
-import cput.ac.za.domain.people.Customer;
-import cput.ac.za.factory.people.CustomerFactory;
-import org.junit.Assert;
+import cput.ac.za.domain.people.Administrator;
+import cput.ac.za.factory.people.AdministratorFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,9 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static junit.framework.TestCase.assertEquals;
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SecurityTest {
+
     @Autowired
     private TestRestTemplate restTemplate;
     private String baseURL = "http://localhost:8080/administrator";
@@ -25,33 +27,34 @@ public class SecurityTest {
     @Before
     public void addDummyData(){
 
-        Customer c = CustomerFactory.getCustomer("123","kevin", "yang");
+        Administrator person = AdministratorFactory.getAdministrator("123", "Name", "Surname", "Email");
 
-        ResponseEntity<Customer> postResponse = restTemplate.postForEntity(baseURL + "/new", c, Customer.class);
+        ResponseEntity<Administrator> postResponse = restTemplate.postForEntity(baseURL + "/new", person, Administrator.class);
 
     }
 
     @Test
-    public void whenCorrect() throws Exception {
+    public void whenCorrectCredentialsWillBe200() throws Exception {
 
         ResponseEntity<String> response = restTemplate.withBasicAuth("admin", "admin").getForEntity(baseURL + "/getall", String.class);
 
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
 
-        Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
 
     @Test
-    public void whenIncorrect() throws Exception {
+    public void whenIncorrectCredentialsWillBe401() throws Exception {
 
         ResponseEntity<String> response = restTemplate.withBasicAuth("admin", "admins").getForEntity(baseURL + "/getall", String.class);
 
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
 
-        Assert.assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 
     }
+
 }

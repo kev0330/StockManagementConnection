@@ -10,32 +10,34 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class Security extends WebSecurityConfigurerAdapter {
-
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String USER_ROLE = "USER";
     private static final String ADMIN_ROLE = "ADMIN";
 
-
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 
         auth.inMemoryAuthentication()
                 .withUser("admin")
-                .password(encoder().encode("password"))
+                .password(encoder().encode("admin"))
                 .roles(ADMIN_ROLE)
                 .and()
                 .withUser("user")
-                .password(encoder().encode("password"))
+                .password(encoder().encode("user"))
                 .roles(USER_ROLE);
 
     }
 
-
+    @Override
     protected void configure(HttpSecurity http) throws Exception{
 
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .anyRequest().authenticated();
+                .antMatchers(HttpMethod.GET, "/administrator/getall")
+                .hasRole(ADMIN_ROLE)
+                .and()
+                .csrf().disable();
 
     }
 
@@ -43,4 +45,6 @@ public class Security extends WebSecurityConfigurerAdapter {
     public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
+
+
 }

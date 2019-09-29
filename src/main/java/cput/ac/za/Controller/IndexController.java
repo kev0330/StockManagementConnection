@@ -9,6 +9,6 @@ public class IndexController {
     @GetMapping("/")
     @ResponseBody
     public String homePage(){
-        return "Welcome";
+        return "This is the Home Page Test";
     }
 }
