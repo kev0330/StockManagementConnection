@@ -25,7 +25,6 @@ public class AdministratorRepositoryTest {
 
     @Test
     public void a_create() {
-
         administratorRepository.create(administrator);
         assertNotNull(administratorRepository.getAll());
         System.out.println(administratorRepository.getAll());
@@ -34,7 +33,6 @@ public class AdministratorRepositoryTest {
 
     @Test
     public void b_read() {
-
         Administrator fromSet = administratorRepository.read(administrator.getUserID());
         assertEquals(administrator, fromSet);
         System.out.println(administratorRepository.getAll());
@@ -42,25 +40,18 @@ public class AdministratorRepositoryTest {
 
     @Test
     public void c_update() {
-
-
         Administrator updatedAdministrator  = AdministratorFactory.getAdministrator("123", "UpdateName", "Surname", "Email");
         administratorRepository.update(updatedAdministrator);
         Assert.assertNotEquals(administrator.getFirstName(), updatedAdministrator.getFirstName());
         System.out.println(administratorRepository.getAll());
-
-
-
     }
 
     @Test
     public void d_delete() {
-
         assertNotNull(administratorRepository.getAll());
         administratorRepository.delete(administrator.getUserID());
         Administrator administratorTor = administratorRepository.read(administrator.getUserID());
         assertNull(administratorTor);
         System.out.println(administratorRepository.getAll());
-
     }
 }

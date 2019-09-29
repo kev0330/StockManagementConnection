@@ -25,12 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .withUser("user")
                 .password(encoder().encode("user"))
                 .roles(USER_ROLE);
-
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-
         http.httpBasic()
                 .and()
                 .authorizeRequests()
@@ -38,13 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .hasRole(ADMIN_ROLE)
                 .and()
                 .csrf().disable();
-
     }
 
     @Bean
     public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
-
-
 }

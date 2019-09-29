@@ -24,58 +24,36 @@ public class AdministratorServiceTest {
 
     @Test
     public void a_create() {
-
-
         administratorService.create(administrator);
-
         assertNotNull(administratorService.getAll());
         System.out.println(administratorService.getAll());
     }
 
     @Test
     public void b_read() {
-
-
         assertNotNull(administratorService.getAll());
-
         Administrator administrator1 = administratorService.read(administrator.getUserID());
-
         assertEquals(administrator, administrator1);
         System.out.println(administratorService.getAll());
-
-
     }
 
     @Test
     public void c_update() {
-
-
         assertNotNull(administratorService.getAll());
-
         Administrator administrator1 = AdministratorFactory.getAdministrator("123", "Name", "Surname", "Email");
         administrator1.setUserID(administrator.getUserID());
         administratorService.update(administrator1);
-
         Administrator administrator2 = administratorService.read(administrator1.getUserID());
-
         assertEquals(administrator1, administrator2);
         System.out.println(administratorService.getAll());
-
     }
 
     @Test
     public void d_delete() {
-
-
         assertNotNull(administratorService.getAll());
-
         administratorService.delete(administrator.getUserID());
-
         Administrator notInSet = administratorService.read(administrator.getUserID());
-
         assertNull(notInSet);
         System.out.println(administratorService.getAll());
-
-
     }
 }

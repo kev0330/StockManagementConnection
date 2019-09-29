@@ -23,38 +23,25 @@ public class SecurityTest {
     private String baseURL = "http://localhost:8080/administrator";
 
     @Autowired
-
     @Before
     public void addDummyData(){
-
         Administrator person = AdministratorFactory.getAdministrator("123", "Name", "Surname", "Email");
-
         ResponseEntity<Administrator> postResponse = restTemplate.postForEntity(baseURL + "/new", person, Administrator.class);
-
     }
 
     @Test
     public void whenCorrectCredentialsWillBe200() throws Exception {
-
         ResponseEntity<String> response = restTemplate.withBasicAuth("admin", "admin").getForEntity(baseURL + "/getall", String.class);
-
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
-
     }
 
     @Test
-    public void whenIncorrectCredentialsWillBe401() throws Exception {
-
-        ResponseEntity<String> response = restTemplate.withBasicAuth("admin", "admins").getForEntity(baseURL + "/getall", String.class);
-
+    public void whenIncorrectCredentialsWill() throws Exception {
+        ResponseEntity<String> response = restTemplate.withBasicAuth("admin", "wrongPassword").getForEntity(baseURL + "/getall", String.class);
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
-
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-
     }
-
 }

@@ -9,7 +9,6 @@ public class AdministratorFactoryTest {
 
     @Test
     public void getAdministrator() {
-
         Administrator administrator = AdministratorFactory.getAdministrator( "123", "Name", "Surname", "Email");
         Assert.assertNotNull(administrator);
     }
