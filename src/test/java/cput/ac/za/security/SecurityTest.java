@@ -38,7 +38,7 @@ public class SecurityTest {
     }
 
     @Test
-    public void whenIncorrectCredentialsWill() throws Exception {
+    public void whenIncorrectCredentialsWillbe400() throws Exception {
         ResponseEntity<String> response = restTemplate.withBasicAuth("admin", "wrongPassword").getForEntity(baseURL + "/getall", String.class);
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
