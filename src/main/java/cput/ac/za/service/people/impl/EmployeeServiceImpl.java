@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
-@Repository("EmployeeServiceImpl")
+
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository repository;
     private static EmployeeService userService = null;

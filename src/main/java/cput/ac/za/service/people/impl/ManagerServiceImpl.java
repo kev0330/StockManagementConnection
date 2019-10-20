@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
-@Repository("ManagementServiceImpl")
+
 public class ManagerServiceImpl implements ManagerService{
     private ManagerRepository repository;
     private static ManagerService userService = null;

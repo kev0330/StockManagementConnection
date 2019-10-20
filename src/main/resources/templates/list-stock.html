@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>All Stocks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+
+<body>
+            <div th:switch="${stock}" class="container">
+                <p class="my-3">
+                    <a href="/edit" class="btn btn-light">
+                        <i class="fas fa-cart-plus">New Stock</i></a>
+                </p>
+                        <table class="table">
+                            <tr>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            <tbody>
+
+                            <tr th:each="stocks : ${stock}">
+                                <td th:text="${stocks.description}"></td>
+                                <td th:text="${stocks.price}"></td>
+                                <td th:text="${stocks.qty}"></td>
+                                <td>
+                                    <a th:href="@{/edit/{id}(id=${stocks.id})}" class="btn btn-light">
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/delete/{id}(id=${stocks.id})}" class="btn btn-light">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+</body>
+
+</html>

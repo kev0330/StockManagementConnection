@@ -1,58 +1,59 @@
 package cput.ac.za.domain.system;
 
-public class Stock {
-    private String id, description, price;
+import javax.persistence.*;
 
-    public Stock(Builder builder){
-        this.id = builder.id;
-        this.description = builder.description;
-        this.price = builder.price;
+@Entity
+@Table(name="TBL_STOCK")
+public class Stock {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="description")
+    private String description;
+
+    @Column(name="price")
+    private String price;
+
+    @Column(name="qty")
+    private String qty;
+
+    public Long getId() {
+        return id;
     }
 
-    public String getId() {
-        return id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getPrice() {
         return price;
     }
 
-    public static class Builder{
-        private String id, description, price;
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
-        public Builder id(String id){
-            this.id = id;
-            return this;
-        }
+    public String getQty() {
+        return qty;
+    }
 
-        public Builder description(String description){
-            this.description = description;
-            return this;
-        }
-
-        public Builder price(String price){
-            this.price = price;
-            return this;
-        }
-
-        public Builder copy(Stock stock){
-            this.id = stock.id;
-            this.description = stock.description;
-            this.price = stock.price;
-            return this;
-        }
-
-        public Stock build(){
-            return new Stock(this);
-        }
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 
     @Override
-    public String toString(){
-        return "ID : " + id + "\nDescription : " + description + "\nPrice : " + price;
+    public String toString() {
+        return "Stock [id = " + id + ", Description = " + description +
+                ", Price = " + price + ", Quantity = " + qty   + "]";
     }
 }
